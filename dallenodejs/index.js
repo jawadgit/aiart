@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.Open_AI_Key,
 });
 const openai = new OpenAIApi(configuration);
 const response = await openai.createImage({
