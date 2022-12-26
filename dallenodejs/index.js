@@ -5,14 +5,28 @@ dotenv.config()
 const configuration = new Configuration({
   apiKey: process.env.Open_AI_Key,
 });
+
 const openai = new OpenAIApi(configuration);
 const response = await openai.createImage({
-  prompt: "A cute baby sea otter",
+  prompt: "A cute cat",
+  response_format: "url",
   n: 2,
   size: "1024x1024",
 });
 
 console.log("response", response.data);
+console.log("response.data.data[0].url", response.data.data[0].url);
+
+let imageUrl = response.data.data[0].url;
+// async function download(imageUrl) {
+//   const response = await fetch(imageUrl);
+//   const buffer = await response.buffer();
+//   fs.writeFile(`./image.jpg`, buffer, () =>
+//     console.log("finished downloading!")
+//   );
+// }
+
+// download(imageUrl);
 
 
 // import { Configuration, OpenAIApi } from "openai";
