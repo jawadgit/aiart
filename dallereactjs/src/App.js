@@ -37,6 +37,12 @@ function App() {
         <>
           <h2>Generate an Image using Open AI API</h2>
 
+          <img
+            src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-yHvr18ZsKopqNuBDKopXZ8lR/user-5pgCR8MAL345Wy3NDnIHrveI/img-61nIJHRvkjKILaGo1ZzcTItf.png?st=2022-12-26T12%3A03%3A01Z&se=20
+  22-12-26T14%3A03%3A01Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-26T10%3A24%3A00Z&ske=2022-12-27T10%3A
+  24%3A00Z&sks=b&skv=2021-08-06&sig=XGBJEamLkdbTcTzFaFRDSGGYXCQxo/lOQqxF1hZyTBc%3D"
+          />
+
           <textarea
             className="app-input"
             placeholder={placeholder}

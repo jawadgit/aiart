@@ -1,16 +1,29 @@
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 const response = await openai.createImage({
   prompt: "A cute baby sea otter",
+  response_format: "url",
   n: 2,
   size: "1024x1024",
 });
 
 console.log("response", response.data);
+console.log("response.data.data[0].url", response.data.data[0].url);
+
+let imageUrl = response.data.data[0].url;
+// async function download(imageUrl) {
+//   const response = await fetch(imageUrl);
+//   const buffer = await response.buffer();
+//   fs.writeFile(`./image.jpg`, buffer, () =>
+//     console.log("finished downloading!")
+//   );
+// }
+
+// download(imageUrl);
 
 // import { Configuration, OpenAIApi } from "openai";
 
