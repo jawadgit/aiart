@@ -8,7 +8,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 const response = await openai.createImage({
-  prompt: "A cute baby sea otter",
+  prompt: "A cute cat",
   response_format: "url",
   n: 2,
   size: "1024x1024",
