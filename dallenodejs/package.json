@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dalle-node": "^1.0.8",
-    "fs": "0.0.1-security",
+    "dotenv": "^16.0.3",
     "node-dalle2": "^1.2.1",
     "node-fetch": "^3.3.0",
     "openai": "^3.1.0"
