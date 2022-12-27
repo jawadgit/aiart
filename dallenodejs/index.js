@@ -1,17 +1,13 @@
 import { Configuration, OpenAIApi } from "openai";
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 
 const configuration = new Configuration({
-<<<<<<< HEAD
-  apiKey: "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",
-=======
   apiKey: process.env.Open_AI_Key,
->>>>>>> 1a23882f5b14297bd7eaa4a63647c74905d85d07
 });
 const openai = new OpenAIApi(configuration);
 const response = await openai.createImage({
-  prompt: "A cute baby sea otter",
+  prompt: "A cute baby cat",
   response_format: "url",
   n: 2,
   size: "1024x1024",
@@ -30,7 +26,6 @@ let imageUrl = response.data.data[0].url;
 // }
 
 // download(imageUrl);
-
 
 // import { Configuration, OpenAIApi } from "openai";
 
