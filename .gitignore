@@ -1,4 +1,16 @@
 /dallenodejs/.env
 /dallereactjs/.env
 /dallenodejs/node_modules
+/dallenodejs/package-lock.json
+
+/dallereactjs/.env
 /dallereactjs/node_modules
+/dallereactjs/package-lock.json
+
+/reactnode/backend/.env
+/reactnode/backend/node_modules
+/reactnode/backend/package-lock.json
+
+/reactnode/frontend/.env
+/reactnode/frontend/node_modules
+/reactnode/frontend/package-lock.json

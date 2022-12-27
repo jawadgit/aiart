@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 
 const configuration = new Configuration({
   apiKey: process.env.Open_AI_Key,
@@ -27,7 +27,6 @@ let imageUrl = response.data.data[0].url;
 // }
 
 // download(imageUrl);
-
 
 // import { Configuration, OpenAIApi } from "openai";
 

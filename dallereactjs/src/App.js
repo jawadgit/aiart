@@ -8,6 +8,7 @@ function App() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
+
   const configuration = new Configuration({
     apiKey: process.env.Open_AI_Key,
   });
@@ -38,8 +39,6 @@ function App() {
       ) : (
         <>
           <h2>Generate an Image using Open AI API</h2>
-
-          <img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-yHvr18ZsKopqNuBDKopXZ8lR/user-5pgCR8MAL345Wy3NDnIHrveI/img-NVXSlvwhPj8CCLysNSzGSQv8.png?st=2022-12-26T16%3A17%3A08Z&se=2022-12-26T18%3A17%3A08Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-26T12%3A45%3A15Z&ske=2022-12-27T12%3A45%3A15Z&sks=b&skv=2021-08-06&sig=YQ4sraSFsIkjhBnnPgPWSqxMyoaPB3b9VJUBWTZ8N8Q%3D"/>
 
           <textarea
             className="app-input"
