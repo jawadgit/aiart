@@ -5,9 +5,10 @@ dotenv.config();
 const configuration = new Configuration({
   apiKey: process.env.Open_AI_Key,
 });
+
 const openai = new OpenAIApi(configuration);
 const response = await openai.createImage({
-  prompt: "A cute baby cat",
+  prompt: "A cute cat",
   response_format: "url",
   n: 2,
   size: "1024x1024",
