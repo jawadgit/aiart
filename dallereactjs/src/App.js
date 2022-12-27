@@ -6,8 +6,9 @@ function App() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
+
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: process.env.Open_AI_Key,
   });
 
   const openai = new OpenAIApi(configuration);
@@ -36,11 +37,6 @@ function App() {
       ) : (
         <>
           <h2>Generate an Image using Open AI API</h2>
-
-          <img
-            alt=""
-            src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-yHvr18ZsKopqNuBDKopXZ8lR/user-5pgCR8MAL345Wy3NDnIHrveI/img-QRrgQbbB0cs55B6b1p1fj6pb.png?st=2022-12-27T05%3A19%3A51Z&se=2022-12-27T07%3A19%3A51Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-26T23%3A17%3A17Z&ske=2022-12-27T23%3A17%3A17Z&sks=b&skv=2021-08-06&sig=FyC/jp%2BRUSg/osOrSQxlGj27EzsnJi1uKiGCC2kbagg%3D"
-          />
 
           <textarea
             className="app-input"
