@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
+import dotenv from 'dotenv';
+dotenv.config()
 
 function App() {
   const [prompt, setPrompt] = useState("");
@@ -7,7 +9,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: process.env.Open_AI_Key,
   });
 
   const openai = new OpenAIApi(configuration);
@@ -37,11 +39,7 @@ function App() {
         <>
           <h2>Generate an Image using Open AI API</h2>
 
-          <img
-            src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-yHvr18ZsKopqNuBDKopXZ8lR/user-5pgCR8MAL345Wy3NDnIHrveI/img-61nIJHRvkjKILaGo1ZzcTItf.png?st=2022-12-26T12%3A03%3A01Z&se=20
-  22-12-26T14%3A03%3A01Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-26T10%3A24%3A00Z&ske=2022-12-27T10%3A
-  24%3A00Z&sks=b&skv=2021-08-06&sig=XGBJEamLkdbTcTzFaFRDSGGYXCQxo/lOQqxF1hZyTBc%3D"
-          />
+          <img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-yHvr18ZsKopqNuBDKopXZ8lR/user-5pgCR8MAL345Wy3NDnIHrveI/img-NVXSlvwhPj8CCLysNSzGSQv8.png?st=2022-12-26T16%3A17%3A08Z&se=2022-12-26T18%3A17%3A08Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-12-26T12%3A45%3A15Z&ske=2022-12-27T12%3A45%3A15Z&sks=b&skv=2021-08-06&sig=YQ4sraSFsIkjhBnnPgPWSqxMyoaPB3b9VJUBWTZ8N8Q%3D"/>
 
           <textarea
             className="app-input"
