@@ -6,7 +6,7 @@
 }
 
 .information {
-  display: block;
+  display: inline-flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;

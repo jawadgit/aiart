@@ -13,11 +13,13 @@ function App() {
       imageName: imageName,
     }).then((response) => {
       setLoading(false);
+      console.log(response, response.data);
       setImageList([
         ...imageList,
         {
           imageName: imageName,
-          imageUrl: response.data,
+          imageUrl: response.data.imageUrl,
+          signedUrl: response.data.signedUrl,
         },
       ]);
     });
@@ -51,6 +53,7 @@ function App() {
             <div className="image">
               <div>
                 <h3>Text: {val.imageName}</h3>
+                <h3>SignedUrl: {val.signedUrl}</h3>
                 <h3>
                   Dalle Image: <img alt="" src={val.imageUrl} />
                 </h3>
