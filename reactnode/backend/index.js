@@ -28,43 +28,52 @@ app.post("/create", (req, res) => {
       n: 2,
       size: "256x256",
     });
-    //console.log(response.data.data[0].url);
     imageUrl = response.data.data[0].url;
-    const privateKey =
-      "0x70693de94d1c5efb66e055c379f022bcb2d4b0585223dbd8c5c13cc49e7c3e69";
-    const account = eth.accounts.privateKeyToAccount(privateKey);
-    eth.accounts.wallet.add(account);
-    eth.defaultAccount = account.address;
-    //debugger;
-    eth.sign(imageUrl, eth.defaultAccount).then((obj) => {
-      console.log({ imageUrl: imageUrl, signedUrl: obj });
-      res.send({ imageUrl: imageUrl, signedUrl: obj });
-    });
-    //let signedUrl = await signImageUrl(imageUrl);
+    let signedUrl = await signImageUrl(imageUrl);
     //console.log("signedUrl", signedUrl);
-    //res.send(signedUrl);
+    res.send({ imageUrl: imageUrl, signedUrl: signedUrl });
   })();
 });
 
-// function signImageUrl(imageUrl) {
-//   /**
-//    * will every image url be signed from official private key or its own private key ?
-//    */
-//   const walletPrivateKey =
-//     "0x70693de94d1c5efb66e055c379f022bcb2d4b0585223dbd8c5c13cc49e7c3e69";
-//   const account = eth.accounts.privateKeyToAccount(walletPrivateKey);
-//   console.log("account", account);
-//   eth.accounts.wallet.add(account);
-//   eth.defaultAccount = account.address;
-//   console.log("eth.defaultAccount", eth.defaultAccount);
-//   console.log("imageUrl", imageUrl);
-//   debugger;
-//   eth.sign(imageUrl, eth.defaultAccount).then((obj) => {
-//     console.log("obj: ", obj);
-//     return obj;
-//   });
-// }
+app.post("/mint", (req, res) => {
+  (async () => {
+    const imageUrl = req.body.imageUrl;
+    const imageSignedUrl = req.body.imageSignedUrl;
+    const verifiedSignedUrl = await verifyImageUrl(imageUrl, imageSignedUrl);
+    console.log('verifiedSignedUrl', verifiedSignedUrl);
+    res.send({ imageUrl: imageUrl, signedUrl: imageSignedUrl, verifiedSignedUrl: verifiedSignedUrl});
+  })();
+});
 
+async function signImageUrl(imageUrl) {
+  /**
+   * will every image url be signed from official private key or its own private key ?
+   */
+  const walletPrivateKey =
+    "0x70693de94d1c5efb66e055c379f022bcb2d4b0585223dbd8c5c13cc49e7c3e69";
+  const account = eth.accounts.privateKeyToAccount(walletPrivateKey);
+  //console.log("account", account);
+  eth.accounts.wallet.add(account);
+  eth.defaultAccount = account.address;
+  //console.log("eth.defaultAccount", eth.defaultAccount);
+  //console.log("imageUrl", imageUrl);
+  let signedUrl = await eth.sign(imageUrl, eth.defaultAccount);
+  return signedUrl;
+}
+async function verifyImageUrl(imageUrl, imageSignedUrl) {
+  const walletPrivateKey =
+    "0x70693de94d1c5efb66e055c379f022bcb2d4b0585223dbd8c5c13cc49e7c3e69";
+  const account = eth.accounts.privateKeyToAccount(walletPrivateKey);
+  //console.log("verify account", account);
+  eth.accounts.wallet.add(account);
+  eth.defaultAccount = account.address;
+  let signingAddress = await eth.accounts.recover(imageUrl, imageSignedUrl);
+  //console.log('verify eth.defaultAccount :', eth.defaultAccount, 'signingAddress', signingAddress);
+  if(eth.defaultAccount == signingAddress){
+    return "valid Url";
+  }
+  return "invalid Url";
+}
 app.get("/testsign", (req, res) => {
   const privateKey =
     "0x70693de94d1c5efb66e055c379f022bcb2d4b0585223dbd8c5c13cc49e7c3e69";

@@ -6,6 +6,7 @@ function App() {
   const [imageName, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [imageList, setImageList] = useState([]);
+  const [verifiedUrl, setVerifiedUrl] = useState([]);
 
   const crateImage = () => {
     setLoading(true);
@@ -20,6 +21,23 @@ function App() {
           imageName: imageName,
           imageUrl: response.data.imageUrl,
           signedUrl: response.data.signedUrl,
+        },
+      ]);
+    });
+  };
+
+  const mintImage = (imageUrl, signedUrl) => {
+    setLoading(true);
+    Axios.post("http://localhost:3001/mint", {
+      imageUrl: imageUrl,
+      imageSignedUrl: signedUrl,
+    }).then((response) => {
+      setLoading(false);
+      console.log(response, response.data);
+      setVerifiedUrl([
+        ...verifiedUrl,
+        {
+          verifiedUrl: response.data.verifiedSignedUrl,
         },
       ]);
     });
@@ -56,7 +74,19 @@ function App() {
                 <h3>SignedUrl: {val.signedUrl}</h3>
                 <h3>
                   Dalle Image: <img alt="" src={val.imageUrl} />
+                  <button onClick={() => mintImage(val.imageUrl, val.signedUrl)}>Mint</button>
                 </h3>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="images">
+        {verifiedUrl.map((val, key) => {
+          return (
+            <div className="image">
+              <div>
+                <h3>Url Verification Status{val.verifiedUrl}</h3>
               </div>
             </div>
           );
