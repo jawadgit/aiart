@@ -70,7 +70,7 @@ async function verifyImageUrl(imageUrl, imageSignedUrl) {
   let signingAddress = await eth.accounts.recover(imageUrl, imageSignedUrl);
   //console.log('verify eth.defaultAccount :', eth.defaultAccount, 'signingAddress', signingAddress);
   if(eth.defaultAccount == signingAddress){
-    return "valid Url";
+    return " valid Url";
   }
   return "invalid Url";
 }
