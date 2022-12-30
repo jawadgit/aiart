@@ -14,3 +14,5 @@
 /reactnode/frontend/.env
 /reactnode/frontend/node_modules
 /reactnode/frontend/package-lock.json
+
+/ipfs/node_modules
