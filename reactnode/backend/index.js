@@ -1,13 +1,22 @@
-const express = require("express");
-const app = express();
-const mysql = require("mysql");
-const cors = require("cors");
-const { Configuration, OpenAIApi } = require("openai");
-require("dotenv").config();
-var Eth = require("web3-eth");
+import express from "express";
+import cors from "cors";
+import * as dotenv from "dotenv";
+import { Configuration, OpenAIApi } from "openai";
+import Eth from "web3-eth";
+import * as IPFS from "ipfs-core";
 
-// "Eth.providers.givenProvider" will be set if in an Ethereum supported browser.
+dotenv.config();
+const app = express();
 var eth = new Eth(Eth.givenProvider);
+
+//const express = require("express");
+//const mysql = require("mysql");
+//const cors = require("cors");
+//const { Configuration, OpenAIApi } = require("openai");
+//require("dotenv").config();
+//const Eth = require("web3-eth");
+//const IPFS = require("ipfs-core");
+// "Eth.providers.givenProvider" will be set if in an Ethereum supported browser.
 
 const configuration = new Configuration({
   apiKey: process.env.Open_AI_Key,
@@ -40,8 +49,12 @@ app.post("/mint", (req, res) => {
     const imageUrl = req.body.imageUrl;
     const imageSignedUrl = req.body.imageSignedUrl;
     const verifiedSignedUrl = await verifyImageUrl(imageUrl, imageSignedUrl);
-    console.log('verifiedSignedUrl', verifiedSignedUrl);
-    res.send({ imageUrl: imageUrl, signedUrl: imageSignedUrl, verifiedSignedUrl: verifiedSignedUrl});
+    const verifiedIPFSUrl = await ipfsUrl(verifiedSignedUrl);
+    //console.log("verifiedIPFSUrl: ", verifiedIPFSUrl);
+    res.send({
+      verifiedSignedUrl: verifiedSignedUrl,
+      verifiedIPFSUrl: verifiedIPFSUrl.path,
+    });
   })();
 });
 
@@ -60,6 +73,7 @@ async function signImageUrl(imageUrl) {
   let signedUrl = await eth.sign(imageUrl, eth.defaultAccount);
   return signedUrl;
 }
+
 async function verifyImageUrl(imageUrl, imageSignedUrl) {
   const walletPrivateKey =
     "0x70693de94d1c5efb66e055c379f022bcb2d4b0585223dbd8c5c13cc49e7c3e69";
@@ -69,11 +83,19 @@ async function verifyImageUrl(imageUrl, imageSignedUrl) {
   eth.defaultAccount = account.address;
   let signingAddress = await eth.accounts.recover(imageUrl, imageSignedUrl);
   //console.log('verify eth.defaultAccount :', eth.defaultAccount, 'signingAddress', signingAddress);
-  if(eth.defaultAccount == signingAddress){
-    return " valid Url";
+  if (eth.defaultAccount == signingAddress) {
+    return " Valid Url ";
   }
-  return "invalid Url";
+  return "Invalid Url";
 }
+
+async function ipfsUrl(url) {
+  const ipfs = await IPFS.create();
+  const cid = await ipfs.add(url);
+  //console.log(cid);
+  return cid;
+}
+
 app.get("/testsign", (req, res) => {
   const privateKey =
     "0x70693de94d1c5efb66e055c379f022bcb2d4b0585223dbd8c5c13cc49e7c3e69";

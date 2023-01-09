@@ -10,11 +10,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hapi/boom": "^10.0.0",
+    "@hapi/cryptiles": "^6.0.0",
+    "crypto": "^1.0.1",
     "dns": "^0.2.2",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.1.0",
+    "i": "^0.3.7",
+    "ipfs": "^0.65.0",
     "ipfs-core": "^0.17.0",
-    "ipfs-http-client": "^59.0.0",
+    "ipfs-http-client": "^56.0.3",
+    "ipfs-http-server": "^0.14.0",
+    "ipfs-infura": "^1.1.9",
     "it-all": "^2.0.0",
-    "nvm": "0.0.4",
+    "nvm": "^0.0.4",
     "uint8arrays": "^4.0.2"
   }
 }

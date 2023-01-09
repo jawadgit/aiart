@@ -8,7 +8,7 @@ function App() {
   const [imageList, setImageList] = useState([]);
   const [verifiedUrl, setVerifiedUrl] = useState([]);
 
-  const crateImage = () => {
+  const createImage = () => {
     setLoading(true);
     Axios.post("http://localhost:3001/create", {
       imageName: imageName,
@@ -38,6 +38,8 @@ function App() {
         ...verifiedUrl,
         {
           verifiedUrl: response.data.verifiedSignedUrl,
+          //verifiedSignedUrl: response.data.verifiedSignedUrl,
+          verifiedIPFSUrl: response.data.verifiedIPFSUrl,
         },
       ]);
     });
@@ -61,7 +63,7 @@ function App() {
           </>
         ) : (
           <>
-            <button onClick={crateImage}>Submit</button>
+            <button onClick={createImage}>Submit</button>
           </>
         )}
       </div>
@@ -70,11 +72,19 @@ function App() {
           return (
             <div className="image">
               <div>
-                <h3>Text: {val.imageName}</h3>
-                <h3>SignedUrl: {val.signedUrl}</h3>
+                <h3>Text: </h3>
+                {val.imageName}
+                <h3>ImageUrl: </h3>
+                {val.imageUrl}
+                <h3>SignedUrl: </h3>
+                {val.signedUrl}
                 <h3>
                   Dalle Image: <img alt="" src={val.imageUrl} />
-                  <button onClick={() => mintImage(val.imageUrl, val.signedUrl)}>Mint</button>
+                  <button
+                    onClick={() => mintImage(val.imageUrl, val.signedUrl)}
+                  >
+                    Mint
+                  </button>
                 </h3>
               </div>
             </div>
@@ -86,7 +96,8 @@ function App() {
           return (
             <div className="image">
               <div>
-                <h3>Url Verification Status{val.verifiedUrl}</h3>
+                <h3>Url Verification Status: {val.verifiedUrl}</h3>
+                <h3>verifiedIPFSUrl: {val.verifiedIPFSUrl}</h3>
               </div>
             </div>
           );
