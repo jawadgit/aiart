@@ -1,8 +1,39 @@
 import * as IPFS from "ipfs-core";
 
-const ipfs = await IPFS.create();
-const { cid } = await ipfs.add("shakaib nisar jawad azad the thetas group");
-console.log(cid);
+const node = await IPFS.create();
+const data = "aplha bravo charlie";
+
+// add your data to IPFS - this can be a string, a Buffer,
+// a stream of Buffers, etc
+const results = await node.add(data);
+
+console.log(results); // QmYJHcPn2JAAdB8goFtSh7Ecg9NpAErttujiDDeaKw8brN
+
+const stream = node.cat("QmYJHcPn2JAAdB8goFtSh7Ecg9NpAErttujiDDeaKw8brN");
+const decoder = new TextDecoder();
+let dataa = "";
+
+//console.log("stream ", stream);
+
+for await (const chunk of stream) {
+  // chunks of data are returned as a Uint8Array, convert it back to a string
+  dataa += await decoder.decode(chunk, { stream: true });
+}
+
+console.log(dataa);
+
+// we loop over the results because 'add' supports multiple
+// additions, but we only added one entry here so we only see
+// one log line in the output
+// for await (const { cid } of results) {
+//   // CID (Content IDentifier) uniquely addresses the data
+//   // and can be used to get it again.
+//   console.log(cid.toString());
+// }
+
+// const ipfs = await IPFS.create();
+// const { cid } = await ipfs.add("shakaib nisar jawad azad the thetas group");
+// console.log(cid);
 
 // const express = require("express");
 // const ipfsClient = require("ipfs-http-client");

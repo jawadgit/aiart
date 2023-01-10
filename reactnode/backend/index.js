@@ -8,6 +8,7 @@ import * as IPFS from "ipfs-core";
 dotenv.config();
 const app = express();
 var eth = new Eth(Eth.givenProvider);
+const ipfs = await IPFS.create();
 
 //const express = require("express");
 //const mysql = require("mysql");
@@ -49,11 +50,13 @@ app.post("/mint", (req, res) => {
     const imageUrl = req.body.imageUrl;
     const imageSignedUrl = req.body.imageSignedUrl;
     const verifiedSignedUrl = await verifyImageUrl(imageUrl, imageSignedUrl);
-    const verifiedIPFSUrl = await ipfsUrl(verifiedSignedUrl);
-    //console.log("verifiedIPFSUrl: ", verifiedIPFSUrl);
+    const verifiedIPFSUrl = await ipfsUrl(ipfs, verifiedSignedUrl);
+    const getReverseUrl = await reverseUrl(ipfs, verifiedIPFSUrl);
+    console.log("getReverseUrl: ", getReverseUrl);
     res.send({
       verifiedSignedUrl: verifiedSignedUrl,
       verifiedIPFSUrl: verifiedIPFSUrl.path,
+      reverseUrl: getReverseUrl,
     });
   })();
 });
@@ -89,11 +92,22 @@ async function verifyImageUrl(imageUrl, imageSignedUrl) {
   return "Invalid Url";
 }
 
-async function ipfsUrl(url) {
-  const ipfs = await IPFS.create();
+async function ipfsUrl(ipfs, url) {
   const cid = await ipfs.add(url);
   //console.log(cid);
   return cid;
+}
+
+async function reverseUrl(ipfs, url) {
+  const stream = ipfs.cat(url);
+  const decoder = new TextDecoder();
+  let dataa = "";
+
+  for await (const chunk of stream) {
+    // chunks of data are returned as a Uint8Array, convert it back to a string
+    dataa += await decoder.decode(chunk, { stream: true });
+  }
+  return dataa;
 }
 
 app.get("/testsign", (req, res) => {
