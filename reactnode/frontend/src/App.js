@@ -40,6 +40,7 @@ function App() {
           verifiedUrl: response.data.verifiedSignedUrl,
           //verifiedSignedUrl: response.data.verifiedSignedUrl,
           verifiedIPFSUrl: response.data.verifiedIPFSUrl,
+          reverseUrl: response.data.reverseUrl,
         },
       ]);
     });
@@ -98,6 +99,7 @@ function App() {
               <div>
                 <h3>Url Verification Status: {val.verifiedUrl}</h3>
                 <h3>verifiedIPFSUrl: {val.verifiedIPFSUrl}</h3>
+                <h3>reverseUrl: {val.reverseUrl}</h3>
               </div>
             </div>
           );
